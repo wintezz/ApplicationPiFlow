@@ -33,6 +33,12 @@ class FragmentA : Fragment() {
         binding = FragmentABinding
             .inflate(inflater, container, false)
 
+        main()
+        return binding.root
+    }
+
+    private fun main() {
+
         GlobalScope.launch {
             val coroutineFlow = oneScreen()
             coroutineFlow.collect {}
@@ -42,13 +48,11 @@ class FragmentA : Fragment() {
             val coroutineFlow2 = twoCoroutine()
             coroutineFlow2.collect {}
         }
-
-        return binding.root
     }
-
 
     private fun oneScreen() = flow {
         emit(100)
+
         while (true) {
             counterOne += 1
             if (counterOne % 2 == 1.0) {
@@ -70,6 +74,7 @@ class FragmentA : Fragment() {
 
     private fun twoCoroutine() = flow {
         emit(100)
+
         while (true) {
             counterTwo += 1
             if (countTwo % 2 == 0) {

@@ -40,6 +40,7 @@ class FragmentB : Fragment() {
             val elapsedMillis: Long = (SystemClock.elapsedRealtime() - binding.chronometer.base)
             if (elapsedMillis / i in 20001..20999) {
                 i++
+
                 if (count == 0) {
                     count = 1
                     binding.constraintLayout.setBackgroundResource(R.color.teal_200)
