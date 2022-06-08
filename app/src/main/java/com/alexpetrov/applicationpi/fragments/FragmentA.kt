@@ -17,14 +17,9 @@ class FragmentA : Fragment() {
 
     private lateinit var binding: FragmentABinding
     private var resultOne = BigDecimal(3)
-    private var resultTwo = BigDecimal(4)
     private var counterOne: Double = 0.0
-    private var counterTwo: Double = 0.0
     private var showOne = ""
-    private var showTwo = ""
     private var formula: Double = 0.0
-    private var countTwo = 0
-    private var divider = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +37,6 @@ class FragmentA : Fragment() {
         GlobalScope.launch {
             val coroutineFlow = oneScreen()
             coroutineFlow.collect {}
-        }
-
-        GlobalScope.launch {
-            val coroutineFlow2 = twoCoroutine()
-            coroutineFlow2.collect {}
         }
     }
 
@@ -68,28 +58,6 @@ class FragmentA : Fragment() {
             if (counterOne % 1000 == 0.0) {
                 binding.textViewA.text = showOne
             }
-        }
-
-    }.flowOn(Dispatchers.IO)
-
-    private fun twoCoroutine() = flow {
-        emit(100)
-
-        while (true) {
-            counterTwo += 1
-            if (countTwo % 2 == 0) {
-                resultTwo -= (BigDecimal(4).divide(BigDecimal(divider + 2), 300, 0))
-
-            } else {
-                resultTwo += (BigDecimal(4).divide(BigDecimal(divider + 2), 300, 0))
-            }
-            showTwo = resultTwo.toString()
-            divider += 2
-
-            if (counterTwo % 1000 == 0.0) {
-                binding.textViewB.text = showTwo
-            }
-            countTwo++
         }
 
     }.flowOn(Dispatchers.IO)
